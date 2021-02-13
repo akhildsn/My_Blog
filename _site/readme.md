@@ -1,0 +1,1 @@
+Hi! If you are reading this note that means that I'm dead.. No. It just means you have way too much time to spare and are somehow reading the Readme document for my blog. 
