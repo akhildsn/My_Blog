@@ -28,7 +28,8 @@ twitter_username: akhildsn
 github_username:  akhildsn
 
 # Build settings
-theme: minima
+remote_theme: broccolini/swiss
+theme_color: black
 plugins:
   - jekyll-feed
 
