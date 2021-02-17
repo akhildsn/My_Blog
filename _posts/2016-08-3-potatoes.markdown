@@ -1,6 +1,6 @@
 ---
 layout: category-post
-title:  "Potatoes"
+title:  "Potatoes (\# The Fries)"
 date:   2015-11-25
 categories: writing
 ---
