@@ -1,11 +1,8 @@
 ---
 layout: category-post
-title:  "Potatoes"
-date:   2015-11-25
+title:  "Sample"
+date:   2021-2-17
 categories: writing
 ---
-
-#heading1 
-This is a sampe
 
 This is sample
