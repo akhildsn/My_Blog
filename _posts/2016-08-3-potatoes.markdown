@@ -1,6 +1,7 @@
 ---
 layout: category-post
 title:  "Potatoes"
+caption: "The Fries"
 date:   2015-11-25
 categories: writing
 ---
