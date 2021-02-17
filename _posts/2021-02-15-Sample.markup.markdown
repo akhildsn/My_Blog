@@ -1,11 +1,8 @@
 ---
 layout: category-post
 title:  "Sample"
-date:   2015-11-25
+date:   2021-2-17
 categories: writing
 ---
-
-#heading1 
-This is a sampe
 
 This is sample
