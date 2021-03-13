@@ -1,0 +1,1 @@
+Hi Everyone! In this blog post, I am going to explain how to setup automated mailing script using python for your Outlook work account. 
