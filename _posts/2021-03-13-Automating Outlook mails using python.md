@@ -6,7 +6,7 @@ categories: writing
 ---
 ### Context
 ---
-I was recently tasked with reaching out to people who demoed products on our website and see if there are any genuine leads. The only infomation I had was their email, what product they treid and the country they were from. I realised I have to first reach out to all of them thorugh mail and take it forward when I get a response. With limited information available, I had to use a  generic template for the mail content and send a bunch of emails and this needs to be done frequently. I wasn't eaxctly thrilled about the idea and since I've been learning python recently, I thought why not automate this? Now, my interaction with automation before this point was only with my old laptop that used to shut down on it's own. So, this is quite new to me and you will understand that one you go through the tutotial. In the spirit of embracing the noobness, I may explain some very basic stuff I figured out as well, this is also to encourage anyone who has no experience in python to try this because **If I can do it, anyone can do it**. 
+I was recently tasked with reaching out to people who demoed products on our website and see if there are any genuine leads. The only infomation I had was their email, what product they treid and the country they were from. I realised I have to first reach out to all of them thorugh mail and take it forward when I get a response. With limited information available, I had to use a  generic template for the mail content and send a bunch of emails and this needs to be done frequently. I wasn't exactly thrilled about the idea and since I've been learning python recently, I thought why not automate this? Now, my interaction with automation before this point was only with my old laptop that used to shut down on it's own. So, this is quite new to me and you will understand that one you go through the tutotial. In the spirit of embracing the noobness, I may explain some very basic stuff I figured out as well, this is also to encourage anyone who has no experience in python to try this because **If I can do it, anyone can do it**. 
 
 ## Tutorial
 ---
@@ -21,7 +21,7 @@ We first need to install O365 library to do so just run ```pip install O365``` w
 #### Authentication steps
 
 1. You first need to register a new application on [Azure portal (App Registrations)](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
- - Login to Azuer portal using the mail id you want to set up the authentication for
+ - Login to Azure portal using the mail id you want to set up the authentication for
  - Register a new application and name it 
  - In the *Supported account types* select 'Accounts in any organizational directory (Any Azure AD directory - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)'
  - Set the redirect URI (Web) to: https://login.microsoftonline.com/common/oauth2/nativeclient and click register
@@ -81,7 +81,7 @@ for index,row in dff.iterrows(): #loop send mails to one customer in each iterat
     m.send() # sending the mail and the loop repeats for all the selected customers
 ```
 
-Thanks you!! Hope it helps
+Thank you!! Hope it helps
 
 
 
