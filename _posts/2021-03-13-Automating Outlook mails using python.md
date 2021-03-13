@@ -6,7 +6,7 @@ categories: writing
 ---
 ### Context
 ---
-I was recently tasked with reaching out to people who demoed products on our website and see if there are any genuine leads. The only infomation I had was their email, what product they treid and the country they were from. I realised I have to first reach out to all of them thorugh mail and take it forward when I get a response. With limited information available, I had to use a  generic template for the mail content and send a bunch of emails. I wasn't eaxctly thrilled about the idea and since I've been learning python recently, I thought why not automate this? Now, my interaction with automation before this point was only with my old laptop that used to shut down on it's own. So, this is quite new to me and you will understand that one you go through the tutotial. In the spirit of embracing the noobness, I may explain some very basic stuff I figured out as well, this is also to encourage anyone who has no experience in python to try this because **If I can do it, anyone can do it**. 
+I was recently tasked with reaching out to people who demoed products on our website and see if there are any genuine leads. The only infomation I had was their email, what product they treid and the country they were from. I realised I have to first reach out to all of them thorugh mail and take it forward when I get a response. With limited information available, I had to use a  generic template for the mail content and send a bunch of emails and this needs to be done frequently. I wasn't eaxctly thrilled about the idea and since I've been learning python recently, I thought why not automate this? Now, my interaction with automation before this point was only with my old laptop that used to shut down on it's own. So, this is quite new to me and you will understand that one you go through the tutotial. In the spirit of embracing the noobness, I may explain some very basic stuff I figured out as well, this is also to encourage anyone who has no experience in python to try this because **If I can do it, anyone can do it**. 
 
 ## Tutorial
 ---
@@ -31,7 +31,8 @@ We first need to install O365 library to do so just run ```pip install O365``` w
  - Go to delegated permissions and add the scope of the Authentication - this basically means, you need to select the functionalities that you will allow this authentication to posses. Here, we need it to be able to send emails. So we select all the scoped under Mail like 'Mail.Read', 'Mail.ReadWrite', 'Mail.Send'. Don't forget to add 'Offline_access', we need this for the libirary to refresh our authentication token which expires every hour
  - Click on Add permissions. Like I mentioned before, there are many other functinoalities that you can add, [check here](https://github.com/O365/python-o365)
 2. Now we need to login for the first time and generate an Authentication token. We will do from our python script
- - Create a new python file and run the following
+ - Create a new python file and run the following:
+
  ```python
  from O365 import Account
 credentials = ('client_id','client_secret') # These are the values you copied earlier
@@ -61,27 +62,26 @@ We are all-set to send mails from the script. I'll go through how to send mails 
 | User3       | user3@example.com  |Yes     |
 | User4       | user4@example.com  |Yes     |
 
+The following is the example code: 
 
-``` python
+```python
+import pandas as pd #pandas for reading and manupulating the file with the customer data
 from O365 import Account
+df=pd.read_csv('file_path') #reading the file
+print(df.head()) #to check how the file looks
+dff=df.loc[df['Send']=="Yes"] #selecting the customers we want to send the mail to
+credentials = ('client_id','client_secret')#accessing the account through Azure application
+account = Account(credentials,tenant_id='429de9c6-7968-48e9-9601-d3bd6c6424bb')
 
-credentials = ('client_id', 'client_secret')
-
-account = Account(credentials)
-m = account.new_message()
-m.to.add('to_example@example.com')
-m.subject = 'Testing!'
-m.body = "George Best quote: I've stopped drinking, but only while I'm asleep."
-m.send()
-
+for index,row in dff.iterrows(): #loop send mails to one customer in each iteration
+    m = account.new_message() #creates a new mail draft
+    m.to.add(row['email']) #takes the email id from our file 
+    m.subject = 'Hope you liked the demo' #subject of the mail
+    m.body = "Hi "+str(row['user name'])+"!<br><br>This is Akhilesh, Business Development Manager. I noticed that you tried products on our demo portal. I appreciate your interest in our product.<br><br>I was hoping we could get in touch and figure out what your exact requirement is." #adding mail body
+    m.send() # sending the mail and the loop repeats for all the selected customers
 ```
 
-{% highlight ruby %} 
-def print_hi(name) puts "Hi, #{name}" end print_hi('Tom') #=> prints 'Hi, Tom' to STDOUT. 
-{% endhighlight %}
-
-
-
+Thanks you!! Hope it helps
 
 
 
