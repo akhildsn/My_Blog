@@ -55,8 +55,8 @@ We are all-set to send mails from the script. I'll go through how to send mails 
 2. In the example code below, I used ```pandas``` to load and manipulate the file with the lead name and email ids. If you wish to quickly understand the commands used below, you can refer to the first six segments of this [video](https://www.youtube.com/watch?v=vmEHCJofslg) or take a look at [pandas documentation](https://pandas.pydata.org/docs/getting_started/index.html)
  - The file I'm using has the following columns: user name, user email id, Send (whether I wish to send an email to the user or not) 
 
-| user name   |        email       |  Send  |
-| ----------- |     -----------    | ------ |
+| user name   |       email       |  Send  |
+| :----:      |     :----:        | :----: |
 | User1       | user1@example.com  |Yes     |
 | User2       | user2@example.com  |No      |
 | User3       | user3@example.com  |Yes     |
