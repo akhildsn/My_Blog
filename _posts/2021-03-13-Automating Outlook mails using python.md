@@ -14,7 +14,16 @@ In this post, we will be looking at setting up a script to send out emails from 
 
 ### Setting up
 
-We first need to install O365 library to do so just run ```pip install O365``` wherever you are running python (I'm assuming you've already. If not, I suggest using jupyter notebook - Anaconda). 
+We first need to install O365 library to do so just run ```pip install O365``` wherever you are running python (I'm assuming you've already set it up. If not, I suggest using jupyter notebook - Anaconda). 
+
+>The first step to be able to work with this library is to register an application on Azure portal and retrieve the auth token
+
+#### Authentication steps
+
+1. You first need to register a new application on [Azure portal (App Registrations)](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
+ - Login to Azuer portal using the mail id you want to set up the authentication for
+ - Register a new application and name it 
+ - In the *Supported account types* select 'Accounts in this organizational directory only'
 
 ``` python
 from O365 import Account
@@ -29,5 +38,28 @@ m.body = "George Best quote: I've stopped drinking, but only while I'm asleep."
 m.send()
 
 ```
+
+{% highlight ruby %} 
+def print_hi(name) puts "Hi, #{name}" end print_hi('Tom') #=> prints 'Hi, Tom' to STDOUT. 
+{% endhighlight %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
