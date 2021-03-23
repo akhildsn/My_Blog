@@ -31,7 +31,7 @@ We first need to install O365 library to do so just run ```pip install O365``` w
  - Go to delegated permissions and add the scope of the Authentication - this basically means, you need to select the functionalities you want this authentication to have. Here, we need it to be able to send emails. So we select all the scoped under Mail like 'Mail.Read', 'Mail.ReadWrite', 'Mail.Send'. Don't forget to add 'Offline_access', we need this for the library to refresh our authentication token which expires every hour
  - Click on Add permissions. Like I mentioned before, there are many other functionalities that you can add, [check here](https://github.com/O365/python-o365)
 
-![Screenshot](https://github.com/akhildsn/akhildsn.github.io/blob/master/Images/azure.png)
+![Screenshots](https://github.com/akhildsn/akhildsn.github.io/blob/master/Images/azure.png)
 <p style="text-align:center"><i> Adding permissions on Azure portal </i></p>
 
 2. Now we need to login for the first time and generate an Authentication token. We will do from our python script
