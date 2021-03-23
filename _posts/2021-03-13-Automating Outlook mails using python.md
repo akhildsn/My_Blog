@@ -44,7 +44,7 @@ We first need to install the O365 library to do so just run ```pip install O365`
 2. Now we need to login for the first time and generate an Authentication token. We will do from our python script
  - Create a new python file and run the following:
 
- ```python
+```python
  from O365 import Account
 credentials = ('client_id','client_secret')#These are the values you copied earlier
 # Directory (tenant) ID copied earlier
@@ -59,7 +59,7 @@ if account.authenticate(scopes=['basic', 'message_all']):
 We are all set to send mails from the script. I'll go through how to send mails from this library with an example. In my case, I had a file with names and email ids like I mentioned. I will make use of that to send mails
 
 1. Drafting and sending mail using O365 is fairly simple. The basic commands we need to know are
- - ```message=Account.new_message()``` creates a new email object - 'message'
+ - ```message=Account.new_message()``` creates a new email object - 'message'
  - ```message.to.add(['example1@example.com', 'example2@example.com'])``` will add recipients of the mail
  - You can add email body content using ```message.body = 'Text in the email body'```
  - You can also add attachments using ```message.attachments.add('file path')```
