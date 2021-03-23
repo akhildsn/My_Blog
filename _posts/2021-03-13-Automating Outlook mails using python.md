@@ -52,7 +52,9 @@ if account.authenticate(scopes=['basic', 'message_all']):
 You will see a link generated once you run this script. Click on it and it will ask you to log in to your Outlook account. You will be redirected to a page once you logged in. Copy the Authenticated URL back where you ran the script. You should see 'Authenticated!'
 
 #### That's it!
----
+
+### Sending the emails
+
 We are all set to send mails from the script. I'll go through how to send mails from this library with an example. In my case, I had a file with names and email ids like I mentioned. I will make use of that to send mails
 
 1. Drafting and sending mail using O365 is fairly simple. The basic commands we need to know are
