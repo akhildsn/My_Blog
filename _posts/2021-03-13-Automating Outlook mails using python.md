@@ -2,7 +2,9 @@
 layout: category-post
 title:  "Automating Outlook e-mails using Python (O365)"
 date:   2021-3-13
-categories: writing
+mathjax: true
+layout: post
+categories: media
 ---
 ### Context
 ---
