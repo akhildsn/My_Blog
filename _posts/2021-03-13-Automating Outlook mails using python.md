@@ -99,4 +99,4 @@ for index,row in dff.iterrows(): #loop send mails to one customer in each iterat
   m.send() # sending the mail and the loop repeats for all the selected customers
 ```
 
-Thank you!! Hope it helps
+Thank you for reading!! Hope it helps
