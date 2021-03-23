@@ -4,5 +4,6 @@ title: About
 permalink: /about/
 ---
 
-This Blog is to collect whatever I learn. This is to help others learn this stuff and I'm pretty sure I'll forget some of this later.
+** \* Under Construction \* **
+This Blog is to collect my thoughts and the stuff I learn. The idea is to document so others can also learn (I'm sure I'll forget some of it, so its for my reference as well :p)
 
