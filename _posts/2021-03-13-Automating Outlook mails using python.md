@@ -35,24 +35,21 @@ We first need to install the O365 library to do so just run ```pip install O365`
  - Go to delegated permissions and add the scope of the Authentication - this basically means, you need to select the functionalities you want this authentication to have. Here, we need it to be able to send emails. So we select all the scoped under Mail like 'Mail.Read', 'Mail.ReadWrite', 'Mail.Send'. Don't forget to add 'Offline_access', we need this for the library to refresh our authentication token which expires every hour
  - Click on Add permissions. Like I mentioned before, there are many other functionalities that you can add, [check here](https://github.com/O365/python-o365)
 
-
 ![flowchart](/Images/azure.png)
 <p style="text-align:center"><i> Adding permissions on Azure portal </i></p>
 
-
-
-2. Now we need to login for the first time and generate an Authentication token. We will do from our python script
+ 2. Now we need to login for the first time and generate an Authentication token. We will do from our python script
  - Create a new python file and run the following:
 
 ```python
- from O365 import Account
+from O365 import Account
 credentials = ('client_id','client_secret')#These are the values you copied earlier
 # Directory (tenant) ID copied earlier
 account = Account(credentials, tenant_id='429de9c6-*************') 
 if account.authenticate(scopes=['basic', 'message_all']):
-  print('Authenticated!')#Let's you know if the authentication was successful
+	print('Authenticated!')#Let's you know if the authentication was successful
 ```
- - You will see a link generated once you run this script. Click on it and it will ask you to log in to your Outlook account. You will be redirected to a page once you logged in. Copy the Authenticated URL back where you ran the script. You should see 'Authenticated!'
+You will see a link generated once you run this script. Click on it and it will ask you to log in to your Outlook account. You will be redirected to a page once you logged in. Copy the Authenticated URL back where you ran the script. You should see 'Authenticated!'
 
 #### That's it!
 ---
@@ -92,7 +89,7 @@ credentials = ('client_id','client_secret')
 account = Account(credentials,tenant_id='429de9c6-7968-48e9-9601-d3bd6c6424bb')
 
 for index,row in dff.iterrows(): #loop send mails to one customer in each iteration
-  m = account.new_message() #creates a new mail draft
+ m = account.new_message() #creates a new mail draft
   m.to.add(row['email']) #takes the email id from our file
   m.subject = 'Hope you liked the demo' #subject of the mail
   m.body = "Hi "+str(row['username'])+"!<br><br>This is Akhilesh, Business Development Manager. I noticed that you tried products on our demo portal. I appreciate your interest in our product.<br><br>I was hoping we could get in touch and figure out what your exact requirement is." #adding mail body
