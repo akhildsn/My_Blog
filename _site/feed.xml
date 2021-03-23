@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-03-23T18:34:54+05:30</updated><id>/feed.xml</id><title type="html">Akhil’s Blog</title><subtitle></subtitle><entry><title type="html">Automating Outlook e-mails using Python (O365)</title><link href="/media/2021/03/23/Automating-Outlook-mails-using-python.html" rel="alternate" type="text/html" title="Automating Outlook e-mails using Python (O365)" /><published>2021-03-23T00:00:00+05:30</published><updated>2021-03-23T00:00:00+05:30</updated><id>/media/2021/03/23/Automating%20Outlook%20mails%20using%20python</id><content type="html" xml:base="/media/2021/03/23/Automating-Outlook-mails-using-python.html">&lt;h3 id=&quot;context&quot;&gt;Context&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-03-23T18:36:29+05:30</updated><id>/feed.xml</id><title type="html">Akhil’s Blog</title><subtitle></subtitle><entry><title type="html">Automating Outlook e-mails using Python (O365)</title><link href="/media/2021/03/23/Automating-Outlook-mails-using-python.html" rel="alternate" type="text/html" title="Automating Outlook e-mails using Python (O365)" /><published>2021-03-23T00:00:00+05:30</published><updated>2021-03-23T00:00:00+05:30</updated><id>/media/2021/03/23/Automating%20Outlook%20mails%20using%20python</id><content type="html" xml:base="/media/2021/03/23/Automating-Outlook-mails-using-python.html">&lt;h3 id=&quot;context&quot;&gt;Context&lt;/h3&gt;
 &lt;hr /&gt;
 &lt;p&gt;I was recently tasked with reaching out to people who demoed products on our website and see if there are any genuine leads. The only information I had was their email, what product they tried and the country they were from. I realized I have to first reach out to all of them through mail and take it forward when I get a response. With limited information available, I had to use a generic template for the mail content and send a bunch of emails and this needs to be done frequently. I wasn’t exactly thrilled about the idea and since I’ve been learning python recently, I thought why not automate this? Now, my interaction with automation before this point was only with my old laptop that used to shut down on its own. So, this is quite new to me and you will understand that once you go through the tutorial. In the spirit of embracing the noobness, I may explain some very basic stuff I figured out as well, this is also to encourage anyone who has no experience in python to try this because &lt;strong&gt;If I can do it, anyone can do it&lt;/strong&gt;.&lt;/p&gt;
 
@@ -16,32 +16,26 @@
 
 &lt;h4 id=&quot;authentication-steps&quot;&gt;Authentication steps&lt;/h4&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;You first need to register a new application on &lt;a href=&quot;https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade&quot;&gt;Azure portal (App Registrations)&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Log in to Azure portal using the mail id you want to set up the authentication for&lt;/li&gt;
-      &lt;li&gt;Register a new application and name it&lt;/li&gt;
-      &lt;li&gt;In the &lt;em&gt;Supported account types&lt;/em&gt; select ‘Accounts in any organizational directory (Any Azure AD directory - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)’&lt;/li&gt;
-      &lt;li&gt;Set the redirect URI (Web) to: “https://login.microsoftonline.com/common/oauth2/nativeclient” and click register&lt;/li&gt;
-      &lt;li&gt;Copy the Application (Client) ID and the Directory (tenant) ID. You’ll need these values later&lt;/li&gt;
-      &lt;li&gt;Under “Certificates &amp;amp; secrets” on the menu on the left, generate a new client secret. Set the expiration preferably to never. Write down the ‘Value’ of the client secret created now. It will be hidden later on&lt;/li&gt;
-      &lt;li&gt;Under API permissions, click on add permissions and select ‘Microsoft Graph’ as the API&lt;/li&gt;
-      &lt;li&gt;Go to delegated permissions and add the scope of the Authentication - this basically means, you need to select the functionalities you want this authentication to have. Here, we need it to be able to send emails. So we select all the scoped under Mail like ‘Mail.Read’, ‘Mail.ReadWrite’, ‘Mail.Send’. Don’t forget to add ‘Offline_access’, we need this for the library to refresh our authentication token which expires every hour&lt;/li&gt;
-      &lt;li&gt;Click on Add permissions. Like I mentioned before, there are many other functionalities that you can add, &lt;a href=&quot;https://github.com/O365/python-o365&quot;&gt;check here&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;1) You first need to register a new application on &lt;a href=&quot;https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade&quot;&gt;Azure portal (App Registrations)&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Log in to Azure portal using the mail id you want to set up the authentication for&lt;/li&gt;
+  &lt;li&gt;Register a new application and name it&lt;/li&gt;
+  &lt;li&gt;In the &lt;em&gt;Supported account types&lt;/em&gt; select ‘Accounts in any organizational directory (Any Azure AD directory - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)’&lt;/li&gt;
+  &lt;li&gt;Set the redirect URI (Web) to: “https://login.microsoftonline.com/common/oauth2/nativeclient” and click register&lt;/li&gt;
+  &lt;li&gt;Copy the Application (Client) ID and the Directory (tenant) ID. You’ll need these values later&lt;/li&gt;
+  &lt;li&gt;Under “Certificates &amp;amp; secrets” on the menu on the left, generate a new client secret. Set the expiration preferably to never. Write down the ‘Value’ of the client secret created now. It will be hidden later on&lt;/li&gt;
+  &lt;li&gt;Under API permissions, click on add permissions and select ‘Microsoft Graph’ as the API&lt;/li&gt;
+  &lt;li&gt;Go to delegated permissions and add the scope of the Authentication - this basically means, you need to select the functionalities you want this authentication to have. Here, we need it to be able to send emails. So we select all the scoped under Mail like ‘Mail.Read’, ‘Mail.ReadWrite’, ‘Mail.Send’. Don’t forget to add ‘Offline_access’, we need this for the library to refresh our authentication token which expires every hour&lt;/li&gt;
+  &lt;li&gt;Click on Add permissions. Like I mentioned before, there are many other functionalities that you can add, &lt;a href=&quot;https://github.com/O365/python-o365&quot;&gt;check here&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;/Images/azure.png&quot; alt=&quot;flowchart&quot; /&gt;&lt;/p&gt;
 &lt;p style=&quot;text-align:center&quot;&gt;&lt;i&gt; Adding permissions on Azure portal &lt;/i&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;Now we need to login for the first time and generate an Authentication token. We will do from our python script
-    &lt;ul&gt;
-      &lt;li&gt;Create a new python file and run the following:&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;2) Now we need to login for the first time and generate an Authentication token. We will do from our python script&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Create a new python file and run the following:&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;O365&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Account&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;credentials&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'client_id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'client_secret'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#These are the values you copied earlier

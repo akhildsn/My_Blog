@@ -24,7 +24,7 @@ We first need to install the O365 library to do so just run ```pip install O365`
 
 #### Authentication steps
 
-1. You first need to register a new application on [Azure portal (App Registrations)](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
+1) You first need to register a new application on [Azure portal (App Registrations)](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
  - Log in to Azure portal using the mail id you want to set up the authentication for
  - Register a new application and name it
  - In the *Supported account types* select 'Accounts in any organizational directory (Any Azure AD directory - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)'
@@ -38,7 +38,7 @@ We first need to install the O365 library to do so just run ```pip install O365`
 ![flowchart](/Images/azure.png)
 <p style="text-align:center"><i> Adding permissions on Azure portal </i></p>
 
-2. Now we need to login for the first time and generate an Authentication token. We will do from our python script
+2) Now we need to login for the first time and generate an Authentication token. We will do from our python script
  - Create a new python file and run the following:
 
 ```python
