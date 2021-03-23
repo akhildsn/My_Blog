@@ -24,7 +24,7 @@ We first need to install O365 library to do so just run ```pip install O365``` w
  - Login to Azure portal using the mail id you want to set up the authentication for
  - Register a new application and name it
  - In the *Supported account types* select 'Accounts in any organizational directory (Any Azure AD directory - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)'
- - Set the redirect URI (Web) to: "https://login.microsoftonline.com/common/oauth2/nativeclient " and click register
+ - Set the redirect URI (Web) to: "https://login.microsoftonline.com/common/oauth2/nativeclient" and click register
  - Copy the Application (Client) ID and the Directory (tenant) ID. You'll need these values later
  - Under "Certificates & secrets" on menu on the left, generate a new client secret. Set the expiration preferably to never. Write down the 'Value' of the client secret created now. It will be hidden later on
  - Under API permissions, click on add permissions and select 'Microsoft Graph' as the API
