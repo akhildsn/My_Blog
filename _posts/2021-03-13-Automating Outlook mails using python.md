@@ -25,15 +25,15 @@ We first need to install the O365 library to do so just run ```pip install O365`
 #### Authentication steps
 
 1. You first need to register a new application on [Azure portal (App Registrations)](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
- - Log in to Azure portal using the mail id you want to set up the authentication for
- - Register a new application and name it
- - In the *Supported account types* select 'Accounts in any organizational directory (Any Azure AD directory - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)'
- - Set the redirect URI (Web) to: "https://login.microsoftonline.com/common/oauth2/nativeclient" and click register
- - Copy the Application (Client) ID and the Directory (tenant) ID. You'll need these values later
- - Under "Certificates & secrets" on the menu on the left, generate a new client secret. Set the expiration preferably to never. Write down the 'Value' of the client secret created now. It will be hidden later on
- - Under API permissions, click on add permissions and select 'Microsoft Graph' as the API
- - Go to delegated permissions and add the scope of the Authentication - this basically means, you need to select the functionalities you want this authentication to have. Here, we need it to be able to send emails. So we select all the scoped under Mail like 'Mail.Read', 'Mail.ReadWrite', 'Mail.Send'. Don't forget to add 'Offline_access', we need this for the library to refresh our authentication token which expires every hour
- - Click on Add permissions. Like I mentioned before, there are many other functionalities that you can add, [check here](https://github.com/O365/python-o365)
+ - Log in to Azure portal using the mail id you want to set up the authentication for
+ - Register a new application and name it
+ - In the *Supported account types* select 'Accounts in any organizational directory (Any Azure AD directory - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)'
+ - Set the redirect URI (Web) to: "https://login.microsoftonline.com/common/oauth2/nativeclient" and click register
+ - Copy the Application (Client) ID and the Directory (tenant) ID. You'll need these values later
+ - Under "Certificates & secrets" on the menu on the left, generate a new client secret. Set the expiration preferably to never. Write down the 'Value' of the client secret created now. It will be hidden later on
+ - Under API permissions, click on add permissions and select 'Microsoft Graph' as the API
+ - Go to delegated permissions and add the scope of the Authentication - this basically means, you need to select the functionalities you want this authentication to have. Here, we need it to be able to send emails. So we select all the scoped under Mail like 'Mail.Read', 'Mail.ReadWrite', 'Mail.Send'. Don't forget to add 'Offline_access', we need this for the library to refresh our authentication token which expires every hour
+ - Click on Add permissions. Like I mentioned before, there are many other functionalities that you can add, [check here](https://github.com/O365/python-o365)
 
 
 ![flowchart](/Images/azure.png)
@@ -42,7 +42,7 @@ We first need to install the O365 library to do so just run ```pip install O365`
 
 
 2. Now we need to login for the first time and generate an Authentication token. We will do from our python script
- - Create a new python file and run the following:
+ - Create a new python file and run the following:
 
 ```python
  from O365 import Account
@@ -52,7 +52,7 @@ account = Account(credentials, tenant_id='429de9c6-*************')
 if account.authenticate(scopes=['basic', 'message_all']):
   print('Authenticated!')#Let's you know if the authentication was successful
 ```
- - You will see a link generated once you run this script. Click on it and it will ask you to log in to your Outlook account. You will be redirected to a page once you logged in. Copy the Authenticated URL back where you ran the script. You should see 'Authenticated!'
+ - You will see a link generated once you run this script. Click on it and it will ask you to log in to your Outlook account. You will be redirected to a page once you logged in. Copy the Authenticated URL back where you ran the script. You should see 'Authenticated!'
 
 #### That's it!
 ---
@@ -60,12 +60,12 @@ We are all set to send mails from the script. I'll go through how to send mails 
 
 1. Drafting and sending mail using O365 is fairly simple. The basic commands we need to know are
  - ```message=Account.new_message()``` creates a new email object - 'message'
- - ```message.to.add(['example1@example.com', 'example2@example.com'])``` will add recipients of the mail
- - You can add email body content using ```message.body = 'Text in the email body'```
- - You can also add attachments using ```message.attachments.add('file path')```
- - ```message.send``` will send the message
+ - ```message.to.add(['example1@example.com', 'example2@example.com'])``` will add recipients of the mail
+ - You can add email body content using ```message.body = 'Text in the email body'```
+ - You can also add attachments using ```message.attachments.add('file path')```
+ - ```message.send``` will send the message
 2. In the example code below, I used ```pandas``` to load and manipulate the file with the lead name and email ids. If you wish to quickly understand the commands used below, you can refer to the first six segments of this [video](https://www.youtube.com/watch?v=vmEHCJofslg) or take a look at [pandas documentation](https://pandas.pydata.org/docs/getting_started/index.html)
- - The file I'm using has the following columns: username, user email id, send (whether I wish to send an email to the user or not)
+ - The file I'm using has the following columns: username, user email id, send (whether I wish to send an email to the user or not)
 
 | username | email | send |
 | :----: | :----: | :----: |

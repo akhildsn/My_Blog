@@ -1,38 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>Automating Outlook e-mails using Python (O365) | Akhil&#39;s Blog</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
-<meta name="generator" content="Jekyll v4.2.0">
-<link rel="canonical" href="/media/2021/03/23/Automating-Outlook-mails-using-python.html">
-
-<link rel="stylesheet" href="/assets/css/index.css">
-
-<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Akhil's Blog">
-
-<link rel="stylesheet" href="/assets/katex/katex.min.css">
-<script defer src="/assets/katex/katex.min.js"></script>
-<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
-
-
-
-
-
-
-
-<header>
-  <a href="/" class="title">Akhil&#39;s Blog</a>
-  <nav><a href="/about/" >About</a><a href="/about/" >About</a><a href="/" >Home</a></nav>
-
-</header>
-
-<article>
-  <header>
-  <h1><a href="/media/2021/03/23/Automating-Outlook-mails-using-python.html">Automating Outlook e-mails using Python (O365)</a></h1><time datetime="2021-03-23T00:00:00+05:30">March 23, 2021</time>
-</header>
-
-  <h3 id="context">Context</h3>
+I"�2<h3 id="context">Context</h3>
 <hr />
 <p>I was recently tasked with reaching out to people who demoed products on our website and see if there are any genuine leads. The only information I had was their email, what product they tried and the country they were from. I realized I have to first reach out to all of them through mail and take it forward when I get a response. With limited information available, I had to use a generic template for the mail content and send a bunch of emails and this needs to be done frequently. I wasn’t exactly thrilled about the idea and since I’ve been learning python recently, I thought why not automate this? Now, my interaction with automation before this point was only with my old laptop that used to shut down on its own. So, this is quite new to me and you will understand that once you go through the tutorial. In the spirit of embracing the noobness, I may explain some very basic stuff I figured out as well, this is also to encourage anyone who has no experience in python to try this because <strong>If I can do it, anyone can do it</strong>.</p>
 
@@ -60,8 +26,8 @@
       <li>Copy the Application (Client) ID and the Directory (tenant) ID. You’ll need these values later</li>
       <li>Under “Certificates &amp; secrets” on the menu on the left, generate a new client secret. Set the expiration preferably to never. Write down the ‘Value’ of the client secret created now. It will be hidden later on</li>
       <li>Under API permissions, click on add permissions and select ‘Microsoft Graph’ as the API</li>
-      <li>Go to delegated permissions and add the scope of the Authentication - this basically means, you need to select the functionalities you want this authentication to have. Here, we need it to be able to send emails. So we select all the scoped under Mail like ‘Mail.Read’, ‘Mail.ReadWrite’, ‘Mail.Send’. Don’t forget to add ‘Offline_access’, we need this for the library to refresh our authentication token which expires every hour</li>
-      <li>Click on Add permissions. Like I mentioned before, there are many other functionalities that you can add, <a href="https://github.com/O365/python-o365">check here</a></li>
+      <li>Go to delegated permissions and add the scope of the Authentication - this basically means, you need to select the functionalities you want this authentication to have. Here, we need it to be able to send emails. So we select all the scoped under Mail like ‘Mail.Read’, ‘Mail.ReadWrite’, ‘Mail.Send’. Don’t forget to add ‘Offline_access’, we need this for the library to refresh our authentication token which expires every hour
+ - Click on Add permissions. Like I mentioned before, there are many other functionalities that you can add, <a href="https://github.com/O365/python-o365">check here</a></li>
     </ul>
   </li>
 </ol>
@@ -71,10 +37,7 @@
 
 <ol>
   <li>Now we need to login for the first time and generate an Authentication token. We will do from our python script
-    <ul>
-      <li>Create a new python file and run the following:</li>
-    </ul>
-  </li>
+ - Create a new python file and run the following:</li>
 </ol>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"> </span><span class="kn">from</span> <span class="nn">O365</span> <span class="kn">import</span> <span class="n">Account</span>
@@ -84,9 +47,7 @@
 <span class="k">if</span> <span class="n">account</span><span class="p">.</span><span class="n">authenticate</span><span class="p">(</span><span class="n">scopes</span><span class="o">=</span><span class="p">[</span><span class="s">'basic'</span><span class="p">,</span> <span class="s">'message_all'</span><span class="p">]):</span>
 <span class="err"> </span> <span class="k">print</span><span class="p">(</span><span class="s">'Authenticated!'</span><span class="p">)</span><span class="c1">#Let's you know if the authentication was successful
 </span></code></pre></div></div>
-<ul>
-  <li>You will see a link generated once you run this script. Click on it and it will ask you to log in to your Outlook account. You will be redirected to a page once you logged in. Copy the Authenticated URL back where you ran the script. You should see ‘Authenticated!’</li>
-</ul>
+<p> - You will see a link generated once you run this script. Click on it and it will ask you to log in to your Outlook account. You will be redirected to a page once you logged in. Copy the Authenticated URL back where you ran the script. You should see ‘Authenticated!’</p>
 
 <h4 id="thats-it">That’s it!</h4>
 <hr />
@@ -95,18 +56,15 @@
 <ol>
   <li>Drafting and sending mail using O365 is fairly simple. The basic commands we need to know are
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">message=Account.new_message()</code> creates a new email object - ‘message’</li>
-      <li><code class="language-plaintext highlighter-rouge">message.to.add(['example1@example.com', 'example2@example.com'])</code> will add recipients of the mail</li>
-      <li>You can add email body content using <code class="language-plaintext highlighter-rouge">message.body = 'Text in the email body'</code></li>
-      <li>You can also add attachments using <code class="language-plaintext highlighter-rouge">message.attachments.add('file path')</code></li>
-      <li><code class="language-plaintext highlighter-rouge">message.send</code> will send the message</li>
+      <li><code class="language-plaintext highlighter-rouge">message=Account.new_message()</code> creates a new email object - ‘message’
+ - <code class="language-plaintext highlighter-rouge">message.to.add(['example1@example.com', 'example2@example.com'])</code> will add recipients of the mail
+ - You can add email body content using <code class="language-plaintext highlighter-rouge">message.body = 'Text in the email body'</code>
+ - You can also add attachments using <code class="language-plaintext highlighter-rouge">message.attachments.add('file path')</code>
+ - <code class="language-plaintext highlighter-rouge">message.send</code> will send the message</li>
     </ul>
   </li>
   <li>In the example code below, I used <code class="language-plaintext highlighter-rouge">pandas</code> to load and manipulate the file with the lead name and email ids. If you wish to quickly understand the commands used below, you can refer to the first six segments of this <a href="https://www.youtube.com/watch?v=vmEHCJofslg">video</a> or take a look at <a href="https://pandas.pydata.org/docs/getting_started/index.html">pandas documentation</a>
-    <ul>
-      <li>The file I’m using has the following columns: username, user email id, send (whether I wish to send an email to the user or not)</li>
-    </ul>
-  </li>
+ - The file I’m using has the following columns: username, user email id, send (whether I wish to send an email to the user or not)</li>
 </ol>
 
 <table>
@@ -166,11 +124,4 @@
 </span></code></pre></div></div>
 
 <p>Thank you for reading!! Hope it helps</p>
-
-  
-</article>
-
-
-
-
-</html>
+:ET
