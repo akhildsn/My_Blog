@@ -38,7 +38,7 @@ We first need to install the O365 library to do so just run ```pip install O365`
 ![flowchart](/Images/azure.png)
 <p style="text-align:center"><i> Adding permissions on Azure portal </i></p>
 
- 2. Now we need to login for the first time and generate an Authentication token. We will do from our python script
+2. Now we need to login for the first time and generate an Authentication token. We will do from our python script
  - Create a new python file and run the following:
 
 ```python
@@ -89,11 +89,11 @@ credentials = ('client_id','client_secret')
 account = Account(credentials,tenant_id='429de9c6-7968-48e9-9601-d3bd6c6424bb')
 
 for index,row in dff.iterrows(): #loop send mails to one customer in each iteration
- m = account.new_message() #creates a new mail draft
-  m.to.add(row['email']) #takes the email id from our file
-  m.subject = 'Hope you liked the demo' #subject of the mail
-  m.body = "Hi "+str(row['username'])+"!<br><br>This is Akhilesh, Business Development Manager. I noticed that you tried products on our demo portal. I appreciate your interest in our product.<br><br>I was hoping we could get in touch and figure out what your exact requirement is." #adding mail body
-  m.send() # sending the mail and the loop repeats for all the selected customers
+	m = account.new_message() #creates a new mail draft
+	m.to.add(row['email']) #takes the email id from our file
+	m.subject = 'Hope you liked the demo' #subject of the mail
+	m.body = "Hi "+str(row['username'])+"!<br><br>This is Akhilesh, Business Development Manager. I noticed that you tried products on our demo portal. I appreciate your interest in our product.<br><br>I was hoping we could get in touch and figure out what your exact requirement is." #adding mail body
+	m.send() # sending the mail and the loop repeats for all the selected customers
 ```
 
 Thank you for reading!! Hope it helps
