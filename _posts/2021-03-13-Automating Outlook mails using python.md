@@ -35,6 +35,8 @@ We first need to install O365 library to do so just run ```pip install O365``` w
 <img src="https://github.com/akhildsn/akhildsn.github.io/blob/master/Images/azure.png" alt="MarineGEO circle lgo" style="height: 100px; width:100px;"/>
 <p style="text-align:center"><i> Adding permissions on Azure portal </i></p>
 
+![flowchart]({{site.baseurl}}/images/azure.png)
+
 2. Now we need to login for the first time and generate an Authentication token. We will do from our python script
  - Create a new python file and run the following:
 

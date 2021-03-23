@@ -77,7 +77,7 @@ code { color: #DC3918; font-size: 16px; padding: 1px 0px; }
 /* Type utilities */
 .h0 { font-size: 64px; line-height: 1.0125; margin-top: 0.85em; word-wrap: break-word; }
 
-@media (min-width: 52em) { .h0 { font-size: 128px; } }
+@media (min-width: 52em) { .h0 { font-size: 70px; } }
 
 .text-right { text-align: right; }
 

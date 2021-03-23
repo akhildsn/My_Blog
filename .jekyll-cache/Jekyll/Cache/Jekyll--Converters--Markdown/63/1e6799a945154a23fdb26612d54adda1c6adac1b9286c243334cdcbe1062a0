@@ -1,0 +1,138 @@
+I"[3<h3 id="context">Context</h3>
+<hr />
+<p>I was recently tasked with reaching out to people who demoed products on our website and see if there are any genuine leads. The only infomation I had was their email, what product they treid and the country they were from. I realised I have to first reach out to all of them thorugh mail and take it forward when I get a response. With limited information available, I had to use a generic template for the mail content and send a bunch of emails and this needs to be done frequently. I wasn’t exactly thrilled about the idea and since I’ve been learning python recently, I thought why not automate this? Now, my interaction with automation before this point was only with my old laptop that used to shut down on it’s own. So, this is quite new to me and you will understand that one you go through the tutotial. In the spirit of embracing the noobness, I may explain some very basic stuff I figured out as well, this is also to encourage anyone who has no experience in python to try this because <strong>If I can do it, anyone can do it</strong>.</p>
+
+<h2 id="tutorial">Tutorial</h2>
+<hr />
+<p>In this post, we will be looking at setting up a script to send out emails from Outlook using O365 library in python. There are alternate ways to do this, especially for your personal account using SMTP (Simple Mail Transfer Protocol) which is a built-in library in python. You can refer to <a href="https://towardsdatascience.com/automate-email-with-python-1e755d9c6276">this tutorial</a> to set it up. But if you want to set it up on your work account (in my case Outlook), that won’t work as there are additional layers of security. Which is why, we will be using O365 library for it. I will only get into setting up basic capabilities like sending emails but there’s a lot of stuff you can do using O365. You’ll find more information on that <a href="https://github.com/O365/python-o365">here</a></p>
+
+<h3 id="setting-up">Setting up</h3>
+
+<p>We first need to install O365 library to do so just run <code class="language-plaintext highlighter-rouge">pip install O365</code> wherever you are running python (I’m assuming you’ve already set it up. If not, I suggest using jupyter notebook - Anaconda).</p>
+
+<blockquote>
+  <p>The first step to be able to work with this library is to register an application on Azure portal and retrieve the auth token</p>
+</blockquote>
+
+<h4 id="authentication-steps">Authentication steps</h4>
+
+<ol>
+  <li>You first need to register a new application on <a href="https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade">Azure portal (App Registrations)</a>
+    <ul>
+      <li>Login to Azure portal using the mail id you want to set up the authentication for</li>
+      <li>Register a new application and name it</li>
+      <li>In the <em>Supported account types</em> select ‘Accounts in any organizational directory (Any Azure AD directory - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)’</li>
+      <li>Set the redirect URI (Web) to: “https://login.microsoftonline.com/common/oauth2/nativeclient “ and click register</li>
+      <li>Copy the Application (Client) ID and the Directory (tenant) ID. You’ll need these values later</li>
+      <li>Under “Certificates &amp; secrets” on menu on the left, generate a new client secret. Set the expiration preferably to never. Write down the ‘Value’ of the client secret created now. It will be hidden later on</li>
+      <li>Under API permissions, click on add permissions and select ‘Microsoft Graph’ as the API</li>
+      <li>Go to delegated permissions and add the scope of the Authentication - this basically means, you need to select the functionalities you want this authentication to have. Here, we need it to be able to send emails. So we select all the scoped under Mail like ‘Mail.Read’, ‘Mail.ReadWrite’, ‘Mail.Send’. Don’t forget to add ‘Offline_access’, we need this for the library to refresh our authentication token which expires every hour</li>
+      <li>Click on Add permissions. Like I mentioned before, there are many other functionalities that you can add, <a href="https://github.com/O365/python-o365">check here</a></li>
+    </ul>
+  </li>
+</ol>
+
+<p><img src="https://github.com/akhildsn/akhildsn.github.io/blob/master/Images/azure.png" alt="Screenshots" />
+<img src="https://github.com/akhildsn/akhildsn.github.io/blob/master/Images/azure.png" alt="MarineGEO circle lgo" style="height: 100px; width:100px;" /></p>
+<p style="text-align:center"><i> Adding permissions on Azure portal </i></p>
+
+<p><img src="/images/azure.png" alt="flowchart" /></p>
+
+<ol>
+  <li>Now we need to login for the first time and generate an Authentication token. We will do from our python script
+    <ul>
+      <li>Create a new python file and run the following:</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">from</span> <span class="nn">O365</span> <span class="kn">import</span> <span class="n">Account</span>
+<span class="n">credentials</span> <span class="o">=</span> <span class="p">(</span><span class="s">'client_id'</span><span class="p">,</span><span class="s">'client_secret'</span><span class="p">)</span><span class="c1">#These are the values you copied earlier
+# Directory (tenant) ID copied earlier
+</span><span class="n">account</span> <span class="o">=</span> <span class="n">Account</span><span class="p">(</span><span class="n">credentials</span><span class="p">,</span> <span class="n">tenant_id</span><span class="o">=</span><span class="s">'429de9c6-*************'</span><span class="p">)</span> 
+<span class="k">if</span> <span class="n">account</span><span class="p">.</span><span class="n">authenticate</span><span class="p">(</span><span class="n">scopes</span><span class="o">=</span><span class="p">[</span><span class="s">'basic'</span><span class="p">,</span> <span class="s">'message_all'</span><span class="p">]):</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">'Authenticated!'</span><span class="p">)</span><span class="c1">#Let's you know if the authentication was successful
+</span></code></pre></div></div>
+<ul>
+  <li>You will see a link generated once you run this script. Click on it and it will ask you to login to your Outlook account. You will be redirected to a page once you logged in. Copy the the Authenticated URL back where you ran the script. You should see ‘Authenticated!’</li>
+</ul>
+
+<h4 id="thats-it">That’s it!</h4>
+<hr />
+<p>We are all-set to send mails from the script. I’ll go through how to send mails from this library with an example. In my case, I had a file with names and email ids like I mentioned. I will make use of that to send mails</p>
+
+<ol>
+  <li>Drafting and sending mail using O365 is fairly simple. The basic commands we need to know are
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">message=Account.new_message()</code> creates a new email object - ‘message’</li>
+      <li><code class="language-plaintext highlighter-rouge">message.to.add(['example1@example.com', 'example2@example.com'])</code> will add recipients of the mail</li>
+      <li>You can add email body content using <code class="language-plaintext highlighter-rouge">message.body = 'Text in the email body'</code></li>
+      <li>You can also add attachments using <code class="language-plaintext highlighter-rouge">message.attachments.add('file path')</code></li>
+      <li><code class="language-plaintext highlighter-rouge">message.send</code> will send the message</li>
+    </ul>
+  </li>
+  <li>In the example code below, I used <code class="language-plaintext highlighter-rouge">pandas</code> to load and manipulate the file with the lead name and email ids. If you wish to quickly understand the commands used below, you can refer to the first six segments of this <a href="https://www.youtube.com/watch?v=vmEHCJofslg">video</a> or take a look at <a href="https://pandas.pydata.org/docs/getting_started/index.html">pandas documentation</a>
+    <ul>
+      <li>The file I’m using has the following columns: username, user email id, send (whether I wish to send an email to the user or not)</li>
+    </ul>
+  </li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">username</th>
+      <th style="text-align: center">email</th>
+      <th style="text-align: center">send</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">User1</td>
+      <td style="text-align: center">user1@example.com</td>
+      <td style="text-align: center">Yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">User2</td>
+      <td style="text-align: center">user2@example.com</td>
+      <td style="text-align: center">No</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">User3</td>
+      <td style="text-align: center">user3@example.com</td>
+      <td style="text-align: center">Yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">User4</td>
+      <td style="text-align: center">user4@example.com</td>
+      <td style="text-align: center">Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The following is the example code:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span> <span class="c1">#pandas for reading and manipulating the customer data
+</span>
+<span class="kn">from</span> <span class="nn">O365</span> <span class="kn">import</span> <span class="n">Account</span>
+
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'file_path'</span><span class="p">)</span> <span class="c1">#reading the file
+</span><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">head</span><span class="p">())</span> <span class="c1">#to check how the file looks
+</span>
+<span class="c1">#selecting the customers we want to send the mail to
+</span><span class="n">dff</span><span class="o">=</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">'send'</span><span class="p">]</span><span class="o">==</span><span class="s">"Yes"</span><span class="p">]</span> 
+
+<span class="c1">#accessing the account through Azure application
+</span><span class="n">credentials</span> <span class="o">=</span> <span class="p">(</span><span class="s">'client_id'</span><span class="p">,</span><span class="s">'client_secret'</span><span class="p">)</span>
+<span class="n">account</span> <span class="o">=</span> <span class="n">Account</span><span class="p">(</span><span class="n">credentials</span><span class="p">,</span><span class="n">tenant_id</span><span class="o">=</span><span class="s">'429de9c6-7968-48e9-9601-d3bd6c6424bb'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span><span class="n">row</span> <span class="ow">in</span> <span class="n">dff</span><span class="p">.</span><span class="n">iterrows</span><span class="p">():</span> <span class="c1">#loop send mails to one customer in each iteration
+</span>  <span class="n">m</span> <span class="o">=</span> <span class="n">account</span><span class="p">.</span><span class="n">new_message</span><span class="p">()</span> <span class="c1">#creates a new mail draft
+</span>  <span class="n">m</span><span class="p">.</span><span class="n">to</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">'email'</span><span class="p">])</span> <span class="c1">#takes the email id from our file
+</span>  <span class="n">m</span><span class="p">.</span><span class="n">subject</span> <span class="o">=</span> <span class="s">'Hope you liked the demo'</span> <span class="c1">#subject of the mail
+</span>  <span class="n">m</span><span class="p">.</span><span class="n">body</span> <span class="o">=</span> <span class="s">"Hi "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">'username'</span><span class="p">])</span><span class="o">+</span><span class="s">"!&lt;br&gt;&lt;br&gt;This is Akhilesh, Business Development Manager. I noticed that you tried products on our demo portal. I appreciate your interest in our product.&lt;br&gt;&lt;br&gt;I was hoping we could get in touch and figure out what your exact requirement is."</span> <span class="c1">#adding mail body
+</span>  <span class="n">m</span><span class="p">.</span><span class="n">send</span><span class="p">()</span> <span class="c1"># sending the mail and the loop repeats for all the selected customers
+</span></code></pre></div></div>
+
+<p>Thank you!! Hope it helps</p>
+:ET
