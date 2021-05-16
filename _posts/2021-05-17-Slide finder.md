@@ -11,7 +11,7 @@ categories: media
 When you work in the commercial team of a product-based company, you tend to spend a lot of time with PowerPoint. Especially in a place where newer products are always coming up. I had a similar experience when I joined [Qure.ai](https://qure.ai). I frequently ended up making custom presentations based on the client I'm talking to. In most cases, I know someone must have made this slide already but I'm not sure who did and when. I would go on our slack channel and check; someone would respond after a sometime with one ppt that probably has the slide I need. Obviously, this is not ideal, and neither is having a central repository of all the presentations (no way of finding where the slide I need is). That is when I started to think about working on ***'Slide finder'*** and the following is what I learnt while making it  
 
 
-   
+
 ## What the Slide Finder does  
 ---  
 The idea is to maintain a central repository of all the presentations keep updating it as more are made. The slide finder will search though all these presentations whenever someone searches for something (Keyword search) and returns a new presentation with all the matching slides. Even though it is straight forward, this is my first such project. So, this blog is going to be on the theme of figuring how to execute such an idea and structuring the project.  
@@ -107,10 +107,10 @@ def duplicate_slide(pres, index):
 ```
   
 References: 
--https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270 
--https://medium.com/@samia.khalid/bert-explained-a-complete-guide-with-theory-and-tutorial-3ac9ebc8fa7c
--https://medium.com/nerd-for-tech/nlp-zero-to-one-sparse-document-representations-part-2-30-d7ce30b96d63
--https://github.com/scanny/python-pptx/issues/132
--https://stackoverflow.com/questions/50866634/python-pptx-copy-slide
+- https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270
+- https://medium.com/@samia.khalid/bert-explained-a-complete-guide-with-theory-and-tutorial-3ac9ebc8fa7c
+- https://medium.com/nerd-for-tech/nlp-zero-to-one-sparse-document-representations-part-2-30-d7ce30b96d63
+- https://github.com/scanny/python-pptx/issues/132
+- https://stackoverflow.com/questions/50866634/python-pptx-copy-slide
 
  
