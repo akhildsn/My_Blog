@@ -9,7 +9,7 @@ categories: media
 ### Context  
 ---  
 When you work in the commercial team of a product-based company, you tend to spend a lot of time with PowerPoint. Especially in a place where newer products are always coming up. I had a similar experience when I joined [Qure.ai](https://qure.ai). I frequently ended up making custom presentations based on the client I'm talking to. In most cases, I know someone must have made this slide already but I'm not sure who did and when. I would go on our slack channel and check; someone would respond after a sometime with one ppt that probably has the slide I need. Obviously, this is not ideal, and neither is having a central repository of all the presentations (no way of finding where the slide I need is). That is when I started to think about working on ***'Slide finder'*** and the following is what I learnt while making it  
-   
+
 
    
 ## What the Slide Finder does  
