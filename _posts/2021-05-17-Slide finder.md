@@ -64,13 +64,13 @@ tokenizer = Tokenizer()
 tokenizer.fit_on_texts(corpus)  
 vectorizer.texts_to_matrix(text,mode="count")
 ```
-For any of these models to work well, we need to pre-process the text we are using. Some obvious ones making everything lower cased, removing stop words (common words like - is, are, the), removing punctuation. I also used stemming (reducing the words to simplest form - played, playing, plays all are replaces with play) and removed duplicate words withing a paragraph (easier implementation with BoW). 
+For any of these models to work well, we need to pre-process the text we are using. Some obvious ones are making everything lower cased, removing stop words (common words like - is, are, the), removing punctuation. I also used stemming (reducing the words to simplest form - played, playing, plays all are replaces with play) and removed duplicate words withing a paragraph (easier implementation with BoW). 
 
 The lesson learnt here is, though there are hundreds of ways of achieving an objective, understanding your use case in depth will help you easily figure out which works best. However, the best part of the project is figuring this out as it allows me to learn a lot of new things that can be useful later. 
   
 #### Creating a new ppt using the relevant slides:
 
-We come across a new challenge when we start picking up slides to make a new ppt. Since the repository has all the slides ever created, there are bound to be duplicates of slides. We ideally want to delete them and this is where TF-IDF is perfect. BoW does not consider lenth of the sentences we are comparing either but TF-IDF does. But like I mentioned, the ```python-pptx``` has some serious limitations right now. One of them is copying slides from one presentation to another - which is exactly what we are try to do. There may be few more modules that can do this but I couldn't install them for my python version (3.8.5). This is the best workaround I could find to do this (stil with some limitations)
+We come across a new challenge when we start picking up slides to make a new ppt. Since the repository has all the slides ever created, there are bound to be duplicates of slides. We ideally want to delete them and this is where TF-IDF is perfect. BoW does not consider lenth of the sentences we are comparing either but TF-IDF does. So I used it to figure out if any of the slides are repeating. But like I mentioned, the ```python-pptx``` has some serious limitations right now. One of them is copying slides from one presentation to another - which is exactly what we are try to do. There may be few more modules that can do this but I couldn't install them for my python version (3.8.5). This is the best workaround I could find to do this (stil with some limitations)
 
 ```python
 def _get_blank_slide_layout(pres):
@@ -106,10 +106,10 @@ def duplicate_slide(pres, index):
 ```
   
 References: 
-https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270 
-https://medium.com/@samia.khalid/bert-explained-a-complete-guide-with-theory-and-tutorial-3ac9ebc8fa7c
-https://medium.com/nerd-for-tech/nlp-zero-to-one-sparse-document-representations-part-2-30-d7ce30b96d63
-https://github.com/scanny/python-pptx/issues/132
-https://stackoverflow.com/questions/50866634/python-pptx-copy-slide
+-https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270 
+-https://medium.com/@samia.khalid/bert-explained-a-complete-guide-with-theory-and-tutorial-3ac9ebc8fa7c
+-https://medium.com/nerd-for-tech/nlp-zero-to-one-sparse-document-representations-part-2-30-d7ce30b96d63
+-https://github.com/scanny/python-pptx/issues/132
+-https://stackoverflow.com/questions/50866634/python-pptx-copy-slide
 
  
