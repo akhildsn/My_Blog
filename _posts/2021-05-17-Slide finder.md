@@ -1,21 +1,27 @@
 ---  
 layout: category-post  
-title:  "Finding slides made easy"  
-date:   2021-3-23  
+title:  "SIR - Slide Identifier and Retriever"  
+date:   2021-5-17 
 mathjax: true  
 layout: post  
 categories: media  
 ---  
 ### Context   
 ---   
-When you work in the commercial team of a product-based company, you tend to spend a lot of time with PowerPoint. Especially in a place where newer products are always coming up. I had a similar experience when I joined [Qure.ai](https://qure.ai). I frequently ended up making custom presentations based on the client I'm talking to. In most cases, I know someone must have made this slide already but I'm not sure who did and when. I would go on our slack channel and check; someone would respond after a sometime with one ppt that probably has the slide I need. Obviously, this is not ideal, and neither is having a central repository of all the presentations (no way of finding where the slide I need is). That is when I started to think about working on ***'Slide finder'*** and the following is what I learnt while making it   
+When you work in the commercial team of a product-based company, you tend to spend a lot of time with PowerPoint. Especially in a place where newer products are always coming up. I had a similar experience when I joined [Qure.ai](https://qure.ai). I frequently ended up making custom presentations based on the client I'm talking to. In most cases, I know someone must have made this slide already but I'm not sure who did and when. I would go on our slack channel and check; someone would respond after a sometime with one ppt that probably has the slide I need. Obviously, this is not ideal, and neither is having a central repository of all the presentations (no way of finding where the slide I need is). That is when I started to think about working on ***'SIR - Slide Identifier and Retriever'*** and the following is what I learnt while making it   
   
   
+
   
-## What the Slide Finder does   
+## What SIR does   
 ---   
 The idea is to maintain a central repository of all the presentations keep updating it as more are made. The slide finder will search though all these presentations whenever someone searches for something (Keyword search) and returns a new presentation with all the matching slides. Even though it is straight forward, this is my first such project. So, this blog is going to be on the theme of figuring how to execute such an idea and structuring the project.   
-    
+
+The final objective looks somewhat like this - a user types in a keyword and a new PPT with relevant slides is saved in the target directory
+
+![flowchart](/Images/SIR-demo.png)
+<p style="text-align:center"><i> Adding permissions on Azure portal </i></p>
+
 The following are the main components that we need to figure out:   
 1. Understanding how to read and manipulate ```*pptx``` files in python   
 2. Matching the slides that contain the Keywords searched   
