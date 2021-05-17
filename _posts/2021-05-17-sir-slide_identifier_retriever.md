@@ -30,8 +30,8 @@ The following are the main components that we need to figure out:
     
 #### Understanding how to read and manipulate ```*pptx``` in python   
     
-This is probably the easiest of the steps. Although there are few modules to do this, ```python-pptx``` works here best with the latest version of python without many hiccups. Unfortunately, the module is fairly new and has limited functionality but for now, it achieves the objective - you can open a ppt, read through each slide, identify the shapes in and get the text inside the text boxes. Here is a primitive implementation which just checks if all the words in the search keywords are present in any given textbox of a slide and print all such ppt names along with slide numbers.   
-   
+This is probably the easiest of the steps. Although there are few modules to do this, ```python-pptx``` works here best with the latest version of python without many hiccups. Unfortunately, the module is fairly new and has limited functionality but for now, it achieves the objective - you can open a ppt, read through each slide, identify the shapes in and get the text inside the text boxes.   
+
 #### Matching the slides that contain the Keywords searched   
    
 After consulting an expert on the topic (a friend of mine), I realised that I was using a hard constraint to match the keywords with the text in the slide. So naturally he suggested some of the state-of-the-art NLP algorithms that can detect sentence similarity.    
